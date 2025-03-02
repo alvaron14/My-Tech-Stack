@@ -20,6 +20,7 @@
     <modules>
         <module>boot</module>
         <module>api-rest</module>
+        <module>domain</module>
     </modules>
 
     <properties>
@@ -36,6 +37,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>api-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
