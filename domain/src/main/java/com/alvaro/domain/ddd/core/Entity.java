@@ -1,8 +1,10 @@
-package com.alvaro.domain.ddd;
+package com.alvaro.domain.ddd.core;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import static com.alvaro.domain.ddd.core.DomainValidator.validator;
 
 @Getter
 @EqualsAndHashCode
@@ -11,6 +13,7 @@ public abstract class Entity<I extends EntityId<?>> {
   private final I id;
 
   protected Entity(final I id) {
+    validator("id", id).isRequired();
     this.id = id;
   }
 

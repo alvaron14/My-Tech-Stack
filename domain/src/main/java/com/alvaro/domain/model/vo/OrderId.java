@@ -1,8 +1,6 @@
 package com.alvaro.domain.model.vo;
 
-import com.alvaro.domain.ddd.AggregateRootId;
-import com.alvaro.domain.ddd.ValueObject;
-import org.jmolecules.ddd.types.Identifiable;
+import com.alvaro.domain.ddd.core.AggregateRootId;
 
 import java.util.UUID;
 

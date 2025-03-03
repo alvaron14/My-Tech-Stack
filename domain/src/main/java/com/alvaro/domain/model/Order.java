@@ -1,7 +1,6 @@
 package com.alvaro.domain.model;
 
-import com.alvaro.domain.ddd.AggregateRoot;
-import com.alvaro.domain.ddd.AggregateRootId;
+import com.alvaro.domain.ddd.core.AggregateRoot;
 import com.alvaro.domain.model.vo.OrderId;
 
 

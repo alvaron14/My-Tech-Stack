@@ -1,4 +1,4 @@
-package com.alvaro.domain.ddd;
+package com.alvaro.domain.ddd.core;
 
 import lombok.ToString;
 
