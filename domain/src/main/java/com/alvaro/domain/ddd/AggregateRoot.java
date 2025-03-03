@@ -1,12 +1,12 @@
 package com.alvaro.domain.ddd;
 
-public abstract class AggregateRoot<T> implements ValueObject<T> {
+import lombok.ToString;
 
-    private T id;
+@ToString
+public abstract class AggregateRoot<I extends AggregateRootId<?>> extends Entity<I> {
 
-    @Override
-    public T value() {
-        return id;
-    }
+  protected AggregateRoot(final I id) {
+    super(id);
+  }
 
 }
