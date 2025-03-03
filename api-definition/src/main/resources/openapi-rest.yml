@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  title: Demo API
+  description: This is an api that will enable to show the capabilities of the project using the whole tech stack.
+  version: 0.0.1
+
+tags:
+  - name: Order
+
+paths:
+  /v1/orders:
+    get:
+      tags:
+        - Order
+      summary: Get orders
+      description: Returns a list of all the existing orders
+      operationId: getOrders
+      responses:
+        '200':
+          description: Orders are fetched
+          content:
+            application/json:
+              schema:
+                $ref: 'schemas/order/search/OrderSearchResult.yml'
+              examples:
+                Orders:
+                  $ref: 'schemas/order/search/OrderSearchResultExample.yml'
+        '204':
+          $ref: 'schemas/StatusCodes.yml#/204'
+        '400':
+          $ref: 'schemas/StatusCodes.yml#/400'
+        '401':
+          $ref: 'schemas/StatusCodes.yml#/401'
+        '403':
+          $ref: 'schemas/StatusCodes.yml#/403'
+        '500':
+          $ref: 'schemas/StatusCodes.yml#/500'
+        '503':
+          $ref: 'schemas/StatusCodes.yml#/503'
+        '504':
+          $ref: 'schemas/StatusCodes.yml#/504'

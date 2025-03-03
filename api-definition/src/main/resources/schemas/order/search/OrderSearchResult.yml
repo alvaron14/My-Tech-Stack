@@ -1,0 +1,14 @@
+type: object
+additionalProperties: false
+properties:
+  data:
+    type: array
+    minItems: 0
+    maxItems: 100
+    items:
+      $ref: '../Order.yml#/Order'
+  pagination:
+    $ref: '../../shared/Pagination.yml#/Pagination'
+required:
+  - data
+  - pagination

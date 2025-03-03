@@ -1,0 +1,11 @@
+Order:
+  type: object
+  additionalProperties: false
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: 'b20434d6-5b00-478d-a45d-21a8f4d64a96'
+      description: The unique identifier of an Order
+  required:
+    - id
