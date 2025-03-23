@@ -1,9 +1,9 @@
 package com.alvaro.domain.model.vo;
 
-import com.alvaro.domain.ddd.ValueObject;
-import org.jmolecules.ddd.types.Identifiable;
+import com.alvaro.domain.ddd.core.AggregateRootId;
 
-public record OrderId(Integer value) implements ValueObject<Integer> {
+import java.util.UUID;
 
+public record OrderId(UUID value) implements AggregateRootId<UUID> {
 
 }

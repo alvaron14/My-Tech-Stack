@@ -20,11 +20,19 @@
     <modules>
         <module>boot</module>
         <module>api-rest</module>
+        <module>api-definition</module>
         <module>domain</module>
     </modules>
 
     <properties>
         <java.version>23</java.version>
+        <spring.version>6.1.14</spring.version>
+        <openapi-generator-maven-plugin.version>7.12.0</openapi-generator-maven-plugin.version>
+        <org.projectlombok.lombok.version>1.18.36</org.projectlombok.lombok.version>
+        <org.mapstruct.version>1.6.3</org.mapstruct.version>
+        <org.mapstruct.processor.version>1.6.0</org.mapstruct.processor.version>
+        <org.apache.maven.plugins.maven-compiler-plugin.version>3.14.0</org.apache.maven.plugins.maven-compiler-plugin.version>
+        <org.jmolecules.integrations.jmolecules-starter-ddd>0.21.0</org.jmolecules.integrations.jmolecules-starter-ddd>
     </properties>
 
     <dependencyManagement>
@@ -44,6 +52,44 @@
                 <artifactId>domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>api-definition</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${org.projectlombok.lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator-maven-plugin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jmolecules.integrations</groupId>
+                <artifactId>jmolecules-starter-ddd</artifactId>
+                <version>${org.jmolecules.integrations.jmolecules-starter-ddd}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jmolecules.integrations</groupId>
+                <artifactId>jmolecules-starter-test</artifactId>
+                <version>${org.jmolecules.integrations.jmolecules-starter-ddd}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -54,10 +100,26 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${org.apache.maven.plugins.maven-compiler-plugin.version}</version>
                     <configuration>
+                        <parameters>true</parameters>
+                        <proc>full</proc>
                         <compilerArgs combine.children="append">
                             <compilerArg>-Amapstruct.unmappedTargetPolicy=ERROR</compilerArg>
+                            <!-- This arg ensures that mapstruct generate a Spring Bean out of every mapper implementation -->
+                            <compilerArg>-Amapstruct.defaultComponentModel=spring</compilerArg>
                         </compilerArgs>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </path>
+                            <path>
+                                <groupId>org.mapstruct</groupId>
+                                <artifactId>mapstruct-processor</artifactId>
+                                <version>${org.mapstruct.processor.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
                     </configuration>
                 </plugin>
             </plugins>

@@ -1,0 +1,29 @@
+Pagination:
+  title: Pagination
+  type: object
+  additionalProperties: false
+  properties:
+    limit:
+      $ref: '#/Limit'
+    offset:
+      $ref: '#/Offset'
+  required:
+    - offset
+    - limit
+
+Limit:
+  type: integer
+  format: int32
+  minimum: 1
+  maximum: 9999
+  default: 100
+  example: 100
+  description: Maximum number of elements per page
+Offset:
+  type: integer
+  format: int64
+  minimum: 0
+  maximum: 999999
+  default: 0
+  example: 0
+  description: Record number from which you want to receive the number of records indicated in limit

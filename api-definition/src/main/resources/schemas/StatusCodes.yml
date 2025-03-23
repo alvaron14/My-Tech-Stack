@@ -1,0 +1,114 @@
+204:
+    description: No Content - The server successfully processed the request and is not returning any content.
+    content:
+        application/json:
+          schema:
+            title: NoContent204
+            allOf:
+            - $ref: '#/ErrorObject'
+            example:
+              status: 204
+              title: No Content
+              detail: Use it when the request is successful, but the response body is empty.
+400:
+  description: Bad Request - Request cannot be fulfilled due to malformed syntax or invalid parameters.
+  content:
+    application/json:
+      schema:
+        title: BadRequest400
+        allOf:
+          - $ref: '#/ErrorObject'
+        example:
+          status: 400
+          title: Bad Request
+          detail: If the resource is misspelled (badly constructed URI) / If the data in the request is not correct.
+
+401:
+  description: Unauthorized - Request lacks valid authentication credentials or the credentials provided are not sufficient to access the requested resource
+  content:
+    application/json:
+      schema:
+        title: Unauthorized401
+        allOf:
+          - $ref: '#/ErrorObject'
+        example:
+          status: 401
+          title: Unauthorized
+          detail: If the API requires subscription and the client does not have it /
+            If there is a problem with the User Credentials
+
+403:
+  description: Forbidden - Request is understood, but the server is refusing to fulfill it due to authorization.
+  content:
+    application/json:
+      schema:
+        title: Forbidden403
+        allOf:
+          - $ref: '#/ErrorObject'
+        example:
+          status: 403
+          title: Forbidden
+          detail: If OAuth Access Token is invalid / If the user did not pass the operational security.
+
+500:
+  description: Internal Server Error
+  content:
+    application/json:
+      schema:
+        title: InternalServerError500
+        allOf:
+          - $ref: '#/ErrorObject'
+        example:
+          status: 500
+          title: Internal Server Error
+          detail: Use it as a General System Error.
+
+503:
+  description: Service Unavailable
+  content:
+    application/json:
+      schema:
+        title: ServiceUnavailable503
+        allOf:
+          - $ref: '#/ErrorObject'
+        example:
+          status: 503
+          title: Service Unavailable
+          detail: Use it to report the Specific Errors that the server suffers.
+
+504:
+  description: Gateway Timeout
+  content:
+    application/json:
+      schema:
+        title: GatewayTimeout504
+        allOf:
+          - $ref: '#/ErrorObject'
+        example:
+          status: 504
+          title: Gateway Timeout
+          detail: Use it to report a Timeout occurred on the server.
+
+ErrorObject:
+  title: ErrorObject
+  type: object
+  additionalProperties: false
+  properties:
+    status:
+      type: integer
+      description: Error status
+      format: int32
+      maximum: 999
+      minimum: 100
+      example: 400
+    title:
+      type: string
+      description: 'Error title'
+      example: 'Bad Request'
+      maxLength: 1000
+    detail:
+      type: string
+      description: 'Error detail'
+      example: 'Invalid Request. Please, check the data in the request (QueryString Parameters and/or Body).'
+      maxLength: 5000
+  description: Error details
