@@ -26,6 +26,7 @@
 
     <properties>
         <java.version>23</java.version>
+        <spring.version>6.1.14</spring.version>
         <openapi-generator-maven-plugin.version>7.12.0</openapi-generator-maven-plugin.version>
         <org.projectlombok.lombok.version>1.18.36</org.projectlombok.lombok.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
@@ -72,6 +73,11 @@
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>${openapi-generator-maven-plugin.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.jmolecules.integrations</groupId>
@@ -100,12 +106,13 @@
                         <proc>full</proc>
                         <compilerArgs combine.children="append">
                             <compilerArg>-Amapstruct.unmappedTargetPolicy=ERROR</compilerArg>
+                            <!-- This arg ensures that mapstruct generate a Spring Bean out of every mapper implementation -->
+                            <compilerArg>-Amapstruct.defaultComponentModel=spring</compilerArg>
                         </compilerArgs>
                         <annotationProcessorPaths>
                             <path>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
-                                <version>${org.projectlombok.lombok.version}</version>
                             </path>
                             <path>
                                 <groupId>org.mapstruct</groupId>
