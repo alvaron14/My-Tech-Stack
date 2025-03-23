@@ -18,7 +18,8 @@ public abstract class Entity<I extends EntityId<?>> {
   }
 
   /**
-   * Check if two entities are equal. Two entities are considered equal if they are the same entity and have the same type and id.
+   * Check if two entities are equal.
+   * Two entities are considered equal if they are the same entity and have the same type and id.
    *
    * <p>NOTE: For object equality, please use {@link #equals(Object)}</p>
    *

@@ -6,7 +6,7 @@ import com.alvaro.domain.model.vo.OrderId;
 
 public class Order extends AggregateRoot<OrderId> {
 
-    private Order(final OrderId id) {
+    public Order(final OrderId id) {
         super(id);
     }
 
