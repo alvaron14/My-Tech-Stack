@@ -16,8 +16,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Registry holds the mapping between a command and its handler. The registry should always be injected, by the spring
- * framework.
+ * ProviderLocator is a class that is responsible for mapping commands and queries with its handlers.
+ * Spring framework should always inject ProviderLocator.
  */
 @Component
 public class ProviderLocator {
