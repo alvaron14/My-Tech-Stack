@@ -1,10 +1,10 @@
-package com.alvaro.domain.ddd.core;
+package com.alvaro.framework.ddd.core;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import static com.alvaro.domain.ddd.core.DomainValidator.validator;
+import static com.alvaro.framework.ddd.core.DomainValidator.validator;
 
 @Getter
 @EqualsAndHashCode

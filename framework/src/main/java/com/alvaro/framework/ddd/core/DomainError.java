@@ -1,4 +1,4 @@
-package com.alvaro.domain.ddd.core;
+package com.alvaro.framework.ddd.core;
 
 public class DomainError extends RuntimeException {
 
