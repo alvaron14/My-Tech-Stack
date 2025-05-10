@@ -21,13 +21,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class OrderController implements OrderApi {
 
-    @Autowired
     private final CommandBus commandBus;
 
-    @Autowired
     private final QueryBus queryBus;
 
-    @Autowired
     private final OrderApiMapper responseMapper;
 
     @GetMapping("/health")

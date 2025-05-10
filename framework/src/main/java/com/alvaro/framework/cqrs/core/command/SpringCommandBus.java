@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SpringCommandBus implements CommandBus {
 
-  @Autowired
   private final ProviderLocator providerLocator;
 
   @Override
