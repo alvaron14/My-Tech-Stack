@@ -22,8 +22,10 @@ import java.util.Objects;
 @Component
 public class ProviderLocator {
 
+  @SuppressWarnings("rawtypes")
   private final Map<Class<? extends Command>, CommandProvider> commandProviders = new HashMap<>();
 
+  @SuppressWarnings("rawtypes")
   private final Map<Class<? extends Query<?>>, QueryProvider> queryProviders = new HashMap<>();
 
   @Autowired
@@ -64,7 +66,7 @@ public class ProviderLocator {
   }
 
   @SuppressWarnings("unchecked")
-  public <C extends Command> CommandHandler<C> getCommandHandler(Class<C> commandClass) {
+  public <K extends Command> CommandHandler<K> getCommandHandler(Class<K> commandClass) {
     return commandProviders.get(commandClass).get();
   }
 
