@@ -2,7 +2,6 @@ package com.alvaro.framework.cqrs.core.command;
 
 import com.alvaro.framework.cqrs.core.ProviderLocator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
