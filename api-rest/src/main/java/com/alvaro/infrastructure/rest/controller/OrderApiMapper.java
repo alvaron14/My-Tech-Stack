@@ -1,8 +1,8 @@
 package com.alvaro.infrastructure.rest.controller;
 
-import com.alvaro.domain.ddd.mapper.ValueObjectMapper;
 import com.alvaro.domain.model.Order;
 import com.alvaro.domain.projection.Pagination;
+import com.alvaro.framework.ddd.mapper.mapper.ValueObjectMapper;
 import com.alvaro.infrastructure.rest.api.dto.OrderDTO;
 import com.alvaro.infrastructure.rest.api.dto.OrderSearchResultDTO;
 import com.alvaro.infrastructure.rest.api.dto.PaginationDTO;

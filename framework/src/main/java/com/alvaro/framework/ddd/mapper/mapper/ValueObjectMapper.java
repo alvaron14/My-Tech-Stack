@@ -1,6 +1,6 @@
-package com.alvaro.domain.ddd.mapper;
+package com.alvaro.framework.ddd.mapper.mapper;
 
-import com.alvaro.domain.ddd.core.ValueObject;
+import com.alvaro.framework.ddd.core.ValueObject;
 import lombok.SneakyThrows;
 import org.mapstruct.Mapper;
 import org.mapstruct.TargetType;
