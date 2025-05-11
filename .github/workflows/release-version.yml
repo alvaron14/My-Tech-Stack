@@ -38,20 +38,20 @@ jobs:
 
       - name: Step 4 - Get project version
         id: get_project_version
-        run: echo "current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
+        run: echo "current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
 
       - name: Step 5 - Generate new version
         id: version
         run: echo "new_version=$(bash ./scripts/generate_new_version.sh '${{ steps.get_project_version.outputs.current_version }}' '${{ steps.get_tag.outputs.tag }}')" >> $GITHUB_OUTPUT
         working-directory: ./.github/workflows
 
-      - name: Step 6 - Update all modules versions to the new one
-        run: mvn -B release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=${{ steps.version.outputs.new_version }}-SNAPSHOT
-
-      - name: Step 7 - Log final result
+      - name: Step 6 - Log final result
         run: |
           echo "Release type: ${{ steps.get_tag.outputs.tag }}"
           echo "New version: ${{ steps.version.outputs.new_version }}"
+
+      - name: Step 7 - Update all modules versions to the new one
+        run: mvn -B release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=${{ steps.version.outputs.new_version }}-SNAPSHOT
 
       - name: Step 8 - Create PR
         uses: peter-evans/create-pull-request@v7
