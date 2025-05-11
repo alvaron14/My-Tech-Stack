@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>api-definition</artifactId>
-
+¡
     <dependencies>
         <dependency>
             <groupId>org.openapitools</groupId>
