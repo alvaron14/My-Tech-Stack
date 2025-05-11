@@ -20,8 +20,12 @@ on:
 
 jobs:
   release:
-    if: ${{ github.actor != 'github-actions[bot]' && (github.event_name == 'pull_request' && github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch') }}
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Step 1 - Checkout main branch from Github
@@ -51,7 +55,7 @@ jobs:
           echo "New version: ${{ steps.version.outputs.new_version }}"
 
       - name: Step 7 - Update all modules versions to the new one
-        run: mvn -B release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=${{ steps.version.outputs.new_version }}-SNAPSHOT
+        run: mvn -B release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=${{ steps.version.outputs.new_version }}
 
       - name: Step 8 - Create PR
         uses: peter-evans/create-pull-request@v7

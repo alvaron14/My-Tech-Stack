@@ -6,7 +6,7 @@ if [[ -z "$1" ]]; then
 fi
 
 # Split into components
-IFS='.' read -r major minor patch <<<"${$1//-SNAPSHOT/}"
+IFS='.' read -r major minor patch <<<"${1//-SNAPSHOT/}"
 
 # Which part to bump?
 part_to_bump=$2  # "major", "minor", or "patch"
