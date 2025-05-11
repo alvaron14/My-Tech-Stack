@@ -1,0 +1,77 @@
+name: Generate Release Version
+run-name: Generate Release Version
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+    paths:
+      - '**/src/main/java/**'
+
+  workflow_dispatch:
+    inputs:
+      version_upgrade:
+        description: Upgrade version type
+        required: true
+        type: choice
+        options:
+        - patch
+        - minor
+        - major
+
+jobs:
+  release:
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Step 1 - Checkout main branch from Github
+        uses: actions/checkout@v4
+
+      - name: Step 2 - chmod scripts
+        run: chmod +x ./scripts/*.sh
+        working-directory: ./.github/workflows
+
+      - name: Step 3 - Get tag of closing PR
+        id: get_tag
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        run: echo "tag=$(bash ./scripts/get_version_type.sh '${{ toJson(github.event.pull_request.labels) }}')" >> $GITHUB_OUTPUT
+        working-directory: ./.github/workflows
+
+      - name: Step 4 - Get project version
+        id: get_project_version
+        run: echo "current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
+
+      - name: Step 5 - Generate new version
+        id: version
+        run: echo "new_version=$(bash ./scripts/generate_new_version.sh '${{ steps.get_project_version.outputs.current_version }}' '${{ inputs.version_upgrade || steps.get_tag.outputs.tag }}')" >> $GITHUB_OUTPUT
+        working-directory: ./.github/workflows
+
+      - name: Step 6 - Log final result
+        run: |
+          echo "Release type: ${{ inputs.version_upgrade || steps.get_tag.outputs.tag }}"
+          echo "New version: ${{ steps.version.outputs.new_version }}-SNAPSHOT"
+
+      - name: Step 7 - Update all modules versions to the new one
+        run: mvn -B release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=${{ steps.version.outputs.new_version }}-SNAPSHOT
+
+      - name: Step 8 - Create PR
+        id: create-pr 
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: internal/upgrade-to-${{ steps.version.outputs.new_version }}
+          title: "Prepare release ${{ steps.version.outputs.new_version }}" 
+          body: "Automatic PR to enable continuous versioning for the project"
+          delete-branch: true
+          sign-commits: true
+
+      - name: Step 9 - Automerge PR
+        if: ${{ steps.create-pr.outputs.pull-request-operation == 'created' }}
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
+          merge-method: squash

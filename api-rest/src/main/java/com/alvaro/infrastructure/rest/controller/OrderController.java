@@ -31,7 +31,6 @@ public class OrderController implements OrderApi {
         return "API is working";
     }
 
-
     @Override
     public OrderSearchResultDTO getOrders() {
         this.commandBus.execute(new CreateOrderCommand(new OrderId(UUID.randomUUID())));
