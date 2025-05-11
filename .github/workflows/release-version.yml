@@ -20,11 +20,8 @@ on:
 
 jobs:
   release:
-    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.actor != 'github-actions[bot]' && (github.event_name == 'pull_request' && github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch') }}
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./.github/workflows
 
     steps:
       - name: Step 1 - Checkout main branch from Github
@@ -32,21 +29,34 @@ jobs:
 
       - name: Step 2 - chmod scripts
         run: chmod +x ./scripts/*.sh
+        working-directory: ./.github/workflows
 
       - name: Step 3 - Get tag of closing PR
         id: get_tag
         run: echo "tag=$(bash ./scripts/get_version_type.sh '${{ toJson(github.event.pull_request.labels) }}')" >> $GITHUB_OUTPUT
+        working-directory: ./.github/workflows
 
-      - name: Step 4 - Generate new version
+      - name: Step 4 - Get project version
+        id: get_project_version
+        run: echo "current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
+
+      - name: Step 5 - Generate new version
         id: version
-        run: echo "new_version=$(bash ./scripts/generate_new_version.sh '${{ steps.get_tag.outputs.tag }}')" >> $GITHUB_OUTPUT
+        run: echo "new_version=$(bash ./scripts/generate_new_version.sh '${{ steps.get_project_version.outputs.current_version }}' '${{ steps.get_tag.outputs.tag }}')" >> $GITHUB_OUTPUT
+        working-directory: ./.github/workflows
 
-      - name: Step 5 - Update all modules versions to the new one
+      - name: Step 6 - Update all modules versions to the new one
         run: mvn -B release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=${{ steps.version.outputs.new_version }}-SNAPSHOT
-        working-directory: ${{ github.workspace }}
 
-      - name: Step 6 - Log final result
+      - name: Step 7 - Log final result
         run: |
           echo "Release type: ${{ steps.get_tag.outputs.tag }}"
           echo "New version: ${{ steps.version.outputs.new_version }}"
+
+      - name: Step 8 - Create PR
+        uses: peter-evans/create-pull-request@v7
+        title: "Upgrade to V${{ steps.version.outputs.new_version }}"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        delete-branch: true
+        sign-commits: true
 

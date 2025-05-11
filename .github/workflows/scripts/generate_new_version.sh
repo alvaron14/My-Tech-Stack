@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Read current version from pom.xml
-current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-
 if [[ -z "$current_version" ]]; then
   echo "Failed to read current version from pom.xml"
   exit 1
