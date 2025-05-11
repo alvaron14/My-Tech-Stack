@@ -55,8 +55,8 @@ jobs:
 
       - name: Step 8 - Create PR
         uses: peter-evans/create-pull-request@v7
-        title: "Upgrade to V${{ steps.version.outputs.new_version }}"
-        token: ${{ secrets.GITHUB_TOKEN }}
-        delete-branch: true
-        sign-commits: true
+        with:
+          title: "Upgrade to V${{ steps.version.outputs.new_version }}"
+          delete-branch: true
+          sign-commits: true
 

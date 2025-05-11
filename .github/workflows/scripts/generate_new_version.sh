@@ -1,15 +1,15 @@
 #!/bin/bash
 
-if [[ -z "$current_version" ]]; then
+if [[ -z "$1" ]]; then
   echo "Failed to read current version from pom.xml"
   exit 1
 fi
 
 # Split into components
-IFS='.' read -r major minor patch <<<"${current_version//-SNAPSHOT/}"
+IFS='.' read -r major minor patch <<<"${$1//-SNAPSHOT/}"
 
 # Which part to bump?
-part_to_bump=$1  # "major", "minor", or "patch"
+part_to_bump=$2  # "major", "minor", or "patch"
 
 case $part_to_bump in
   major)
