@@ -43,7 +43,7 @@ jobs:
 
       - name: Step 5 - Update all modules versions to the new one
         run: mvn -B release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=${{ steps.version.outputs.new_version }}-SNAPSHOT
-        working-directory: $GITHUB_WORKSPACE
+        working-directory: ${{ github.workspace }}
 
       - name: Step 6 - Log final result
         run: |
