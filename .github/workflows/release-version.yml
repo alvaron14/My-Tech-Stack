@@ -1,0 +1,48 @@
+name: Generate Release Version
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+    paths:
+      - 'code/**'
+
+  workflow_dispatch:
+    inputs:
+      version_upgrade:
+        description: Upgrade version type
+        required: true
+        type: choice
+        options:
+        - patch
+        - minor
+        - major
+
+jobs:
+  release:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Step 1 - Checkout main branch from Github
+        uses: actions/checkout@v4
+
+      - name: Step 2 - chmod scripts
+        run: chmod +x ./scripts/*.sh
+
+      - name: Step 3 - Get tag of closing PR
+        id: get_tag
+        run: echo "tag=$(bash ./scripts/get_version_type.sh '${{ toJson(github.event.pull_request.labels) }}')" >> $GITHUB_OUTPUT
+
+      - name: Step 4 - Generate new version
+        id: version
+        run: echo "new_version=$(bash ./scripts/generate_new_version.sh '${{ steps.get_tag.outputs.tag }}')" >> $GITHUB_OUTPUT
+
+      - name: Step 5 - Update all modules versions to the new one
+        run: mvn -B release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=${{ steps.version.outputs.new_version }}-SNAPSHOT
+
+      - name: Step 6 - Log final result
+        run: |
+          echo "Release type: ${{ steps.get_tag.outputs.tag }}"
+          echo "New version: ${{ steps.version.outputs.new_version }}"
+
