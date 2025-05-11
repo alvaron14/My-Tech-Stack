@@ -28,7 +28,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Step 2 - chmod scripts
-        run: chmod +x ./scripts/*.sh
+        run: |
+          echo "$PWD"
+          chmod +x ./scripts/*.sh
 
       - name: Step 3 - Get tag of closing PR
         id: get_tag
