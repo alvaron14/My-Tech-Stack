@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LABELS=$(echo '$1' | jq -r '.[].name')
+LABELS=$(echo "$1" | jq -r '.[].name')
 RELEASE_TYPE="minor"  # default if no label
 
 for label in $LABELS; do
