@@ -60,7 +60,7 @@ jobs:
       - name: Step 8 - Create PR
         uses: peter-evans/create-pull-request@v7
         with:
-          title: "Prepare release ${{ steps.version.outputs.new_version//-SNAPSHOT/ }}"
+          title: "Prepare release ${{ steps.version.outputs.new_version //-SNAPSHOT/ }}"
           body: "Automatic PR to enable continous versioning for the project"
           delete-branch: true
           sign-commits: true
