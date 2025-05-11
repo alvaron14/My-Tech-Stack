@@ -32,11 +32,11 @@ jobs:
 
       - name: Step 3 - Get tag of closing PR
         id: get_tag
-        run: echo "tag=$(bash ./scripts/get_version_type.sh '${{ toJson(github.event.pull_request.labels) }}')" >> $GITHUB_OUTPUT
+        run: echo "tag=$(bash ./github/workflows/scripts/get_version_type.sh '${{ toJson(github.event.pull_request.labels) }}')" >> $GITHUB_OUTPUT
 
       - name: Step 4 - Generate new version
         id: version
-        run: echo "new_version=$(bash ./scripts/generate_new_version.sh '${{ steps.get_tag.outputs.tag }}')" >> $GITHUB_OUTPUT
+        run: echo "new_version=$(bash ./github/workflows/scripts/generate_new_version.sh '${{ steps.get_tag.outputs.tag }}')" >> $GITHUB_OUTPUT
 
       - name: Step 5 - Update all modules versions to the new one
         run: mvn -B release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=${{ steps.version.outputs.new_version }}-SNAPSHOT

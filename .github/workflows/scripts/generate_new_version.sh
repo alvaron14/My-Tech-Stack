@@ -28,9 +28,4 @@ esac
 
 new_version="${major}.${minor}.${patch}-SNAPSHOT"
 
-# Apply the new version
-mvn org.apache.maven.plugins:maven-release-plugin:update-versions \
-    -DdevelopmentVersion="$new_version" \
-    -DgenerateBackupPoms=false
-
 echo "$new_version"
