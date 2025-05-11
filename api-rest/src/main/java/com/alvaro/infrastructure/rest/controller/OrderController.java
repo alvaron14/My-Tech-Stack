@@ -24,6 +24,7 @@ public class OrderController implements OrderApi {
 
     private final QueryBus queryBus;
 
+
     private final OrderApiMapper responseMapper;
 
     @GetMapping("/health")
@@ -32,7 +33,8 @@ public class OrderController implements OrderApi {
     }
 
 
-
+  
+  
 
     @Override
     public OrderSearchResultDTO getOrders() {
