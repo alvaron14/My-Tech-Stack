@@ -23,6 +23,6 @@ case $part_to_bump in
     exit 1
 esac
 
-new_version="${major}.${minor}.${patch}-SNAPSHOT"
+new_version="${major}.${minor}.${patch}"
 
 echo "$new_version"
