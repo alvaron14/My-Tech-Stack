@@ -52,7 +52,7 @@ mvn spring-boot:run
 
 ## 📂 Project Structure
 
-This repository follows the **Domain-Driven Design (DDD)** principle to organize its structure. The key components include:
+This repository follows **Domain-Driven Design (DDD)** principles and is structured according to the **hexagonal architecture** (ports and adapters), ensuring a clear separation between the core business logic and external interfaces such as databases and APIs. The key components include:
 
 - `/domain`: Contains core business logic and domain models.
 - `/application`: Handles application-level logic, such as use cases and service orchestration.
