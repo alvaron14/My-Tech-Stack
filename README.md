@@ -50,6 +50,13 @@ cd boot
 mvn spring-boot:run
 ```
 
+#### API Documentation
+To access the OpenAPI documentation and execute endpoints, you can visit the following URL:
+
+```
+http://localhost:8080/apis
+```
+
 ## 📂 Project Structure
 
 This repository follows **Domain-Driven Design (DDD)** principles and is structured according to the **hexagonal architecture** (ports and adapters), ensuring a clear separation between the core business logic and external interfaces such as databases and APIs. The key components include:
