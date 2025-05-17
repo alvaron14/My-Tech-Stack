@@ -29,10 +29,13 @@
         <java.version>23</java.version>
         <spring.version>6.1.14</spring.version>
         <spring-core.version>6.2.0</spring-core.version>
+        <spring-boot-starter-web.version>3.1.4</spring-boot-starter-web.version>
         <openapi-generator-maven-plugin.version>7.12.0</openapi-generator-maven-plugin.version>
+        <springdoc-openapi-starter.version>2.8.8</springdoc-openapi-starter.version>
         <org.projectlombok.lombok.version>1.18.38</org.projectlombok.lombok.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <org.mapstruct.processor.version>1.6.0</org.mapstruct.processor.version>
+        <org.mapstruct.binding.version>0.2.0</org.mapstruct.binding.version>
         <org.apache.maven.plugins.maven-compiler-plugin.version>3.14.0
         </org.apache.maven.plugins.maven-compiler-plugin.version>
         <org.jmolecules.integrations.jmolecules-starter-ddd>0.21.0</org.jmolecules.integrations.jmolecules-starter-ddd>
@@ -87,6 +90,11 @@
                 <version>${openapi-generator-maven-plugin.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc-openapi-starter.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring.version}</version>
@@ -95,6 +103,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
                 <version>${spring-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot-starter-web.version}</version>
             </dependency>
 
             <dependency>
@@ -136,6 +149,11 @@
                                 <groupId>org.mapstruct</groupId>
                                 <artifactId>mapstruct-processor</artifactId>
                                 <version>${org.mapstruct.processor.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok-mapstruct-binding</artifactId>
+                                <version>${org.mapstruct.binding.version}</version>
                             </path>
                         </annotationProcessorPaths>
                     </configuration>
