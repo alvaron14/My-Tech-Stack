@@ -26,7 +26,7 @@ Here are some of the tools and frameworks that are part of my Java tech stack:
 ## 🚀 Getting Started
 
 ### Requirements
-  - Java 23
+  - Java 21
   - Maven 3.9.9
 
 ### Installation
