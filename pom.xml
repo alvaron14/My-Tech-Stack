@@ -26,6 +26,8 @@
     </modules>
 
     <properties>
+        <sonar.organization>alvaron14-projects</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <java.version>23</java.version>
         <spring.version>6.1.14</spring.version>
         <spring-core.version>6.2.0</spring-core.version>
