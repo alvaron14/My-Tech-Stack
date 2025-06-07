@@ -1,10 +1,9 @@
 package com.alvaro.infrastructure.model.order.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.util.UUID;
 
@@ -12,9 +11,11 @@ import java.util.UUID;
 @Table
 @Getter
 @Setter
+@Accessors(chain = true)
 public class OrderJpaEntity {
 
   @Id
-  //@GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
+
 }
