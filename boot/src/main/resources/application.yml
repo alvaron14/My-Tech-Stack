@@ -1,6 +1,8 @@
 spring:
   application:
     name: MyArchitecture
+  profiles:
+    active: standalone
 management:
   endpoints:
     web:

@@ -23,11 +23,13 @@
         <module>domain</module>
         <module>framework</module>
         <module>application</module>
+        <module>infrastructure</module>
     </modules>
 
     <properties>
         <sonar.organization>alvaron14-projects</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <java.version>21</java.version>
         <spring.version>6.1.14</spring.version>
         <spring-core.version>6.2.0</spring-core.version>
@@ -38,9 +40,12 @@
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <org.mapstruct.processor.version>1.6.0</org.mapstruct.processor.version>
         <org.mapstruct.binding.version>0.2.0</org.mapstruct.binding.version>
-        <org.apache.maven.plugins.maven-compiler-plugin.version>3.14.0
-        </org.apache.maven.plugins.maven-compiler-plugin.version>
+        <org.apache.maven.plugins.maven-compiler-plugin.version>3.14.0</org.apache.maven.plugins.maven-compiler-plugin.version>
         <org.jmolecules.integrations.jmolecules-starter-ddd>0.21.0</org.jmolecules.integrations.jmolecules-starter-ddd>
+        <org.springframework.boot.spring-boot-starter-data-jpa.version>3.5.0</org.springframework.boot.spring-boot-starter-data-jpa.version>
+        <maven.processor.plugin.version>5.0</maven.processor.plugin.version>
+        <hibernate.version>6.6.8.Final</hibernate.version>
+        <liquibase.version>4.30.0</liquibase.version>
     </properties>
 
     <dependencyManagement>
@@ -73,6 +78,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>infrastructure</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -110,6 +120,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring-boot-starter-web.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${org.springframework.boot.spring-boot-starter-data-jpa.version}</version>
             </dependency>
 
             <dependency>
@@ -158,6 +173,38 @@
                                 <version>${org.mapstruct.binding.version}</version>
                             </path>
                         </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.bsc.maven</groupId>
+                    <artifactId>maven-processor-plugin</artifactId>
+                    <version>${maven.processor.plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.hibernate</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>${hibernate.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.liquibase</groupId>
+                    <artifactId>liquibase-maven-plugin</artifactId>
+                    <version>${liquibase.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>infrastructure</artifactId>
+                            <version>${project.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.liquibase.ext</groupId>
+                            <artifactId>liquibase-hibernate6</artifactId>
+                            <version>${liquibase.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <skip>true</skip>
                     </configuration>
                 </plugin>
             </plugins>
