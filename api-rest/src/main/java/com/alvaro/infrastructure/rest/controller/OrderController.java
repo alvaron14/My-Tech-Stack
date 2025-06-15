@@ -10,7 +10,6 @@ import com.alvaro.framework.cqrs.core.query.QueryBus;
 import com.alvaro.infrastructure.rest.api.OrderApi;
 import com.alvaro.infrastructure.rest.api.dto.OrderSearchResultDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,11 +24,6 @@ public class OrderController implements OrderApi {
     private final QueryBus queryBus;
 
     private final OrderApiMapper responseMapper;
-
-    @GetMapping("/health")
-    public String getHealth() {
-        return "API is working";
-    }
 
     @Override
     public OrderSearchResultDTO getOrders() {
