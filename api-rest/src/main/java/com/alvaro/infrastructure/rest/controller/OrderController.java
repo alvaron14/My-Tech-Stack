@@ -26,11 +26,6 @@ public class OrderController implements OrderApi {
 
     private final OrderApiMapper responseMapper;
 
-    @GetMapping("/health")
-    public String getHealth() {
-        return "API is working";
-    }
-
     @Override
     public OrderSearchResultDTO getOrders() {
         this.commandBus.execute(new CreateOrderCommand(new OrderId(UUID.randomUUID())));
